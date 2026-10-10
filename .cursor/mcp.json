@@ -1,0 +1,18 @@
+{
+    "mcpServers": {
+      "linear-panthera": {
+        "command": "npx",
+        "args": ["-y", "mcp-remote", "https://mcp.linear.app/mcp"],
+        "env": {
+          "MCP_REMOTE_CONFIG_DIR": "${userHome}/.mcp-auth/linear-panthera"
+        }
+      },
+      "argent": {
+        "command": "node",
+        "args": [
+          "node_modules/@swmansion/argent/dist/cli.js",
+          "mcp"
+        ]
+      }
+    }
+  }
