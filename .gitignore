@@ -40,5 +40,8 @@ yarn-error.*
 /ios
 /android
 
-# cursor
-.cursor
+# cursor (keep local debug logs; share MCP + rules with the team)
+.cursor/*
+!.cursor/mcp.json
+!.cursor/rules/
+!.cursor/rules/**
