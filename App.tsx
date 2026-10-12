@@ -7,33 +7,43 @@ import "react-native-reanimated";
 
 import { navigationRef } from "@/lib/navigation";
 import RootNavigator from "@/navigation/RootNavigator";
+import { AuthProvider, useAuth } from "@/state/AuthContext";
 
 SplashScreen.preventAutoHideAsync();
 
-export default function App() {
-  const [loaded, error] = useFonts({
+function AppShell() {
+  const { isReady } = useAuth();
+  const [fontsLoaded, fontError] = useFonts({
     SpaceMono: require("./assets/fonts/SpaceMono-Regular.ttf"),
   });
 
   useEffect(() => {
-    if (error) throw error;
-  }, [error]);
+    if (fontError) throw fontError;
+  }, [fontError]);
 
   useEffect(() => {
-    if (loaded) {
+    if (fontsLoaded && isReady) {
       SplashScreen.hideAsync();
     }
-  }, [loaded]);
+  }, [fontsLoaded, isReady]);
 
-  if (!loaded) {
+  if (!fontsLoaded || !isReady) {
     return null;
   }
 
   return (
+    <NavigationContainer ref={navigationRef}>
+      <RootNavigator />
+    </NavigationContainer>
+  );
+}
+
+export default function App() {
+  return (
     <SafeAreaProvider>
-      <NavigationContainer ref={navigationRef}>
-        <RootNavigator />
-      </NavigationContainer>
+      <AuthProvider>
+        <AppShell />
+      </AuthProvider>
     </SafeAreaProvider>
   );
 }

@@ -1,18 +1,14 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { useAuth } from "@/state/AuthContext";
 
-import MainTabs from "./MainTabs";
-import type { RootStackParamList } from "./types";
-
-const Stack = createNativeStackNavigator<RootStackParamList>();
+import AuthorizedStack from "./AuthorizedStack";
+import UnauthenticatedStack from "./UnauthenticatedStack";
 
 export default function RootNavigator() {
-  return (
-    <Stack.Navigator initialRouteName="Tabs">
-      <Stack.Screen
-        name="Tabs"
-        component={MainTabs}
-        options={{ headerShown: false }}
-      />
-    </Stack.Navigator>
-  );
+  const { session } = useAuth();
+
+  if (session) {
+    return <AuthorizedStack />;
+  }
+
+  return <UnauthenticatedStack />;
 }

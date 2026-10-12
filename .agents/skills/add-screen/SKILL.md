@@ -5,7 +5,7 @@ description: Build or change a screen in panthera-app (Expo + React Native) — 
 
 # Add or change a screen
 
-The app uses React Navigation native stacks (`Unauthenticated`, `Teacher`, `Student`), Apollo Client 4 (hooks from `@apollo/client/react`), and GraphQL Code Generator (client preset). `schema.graphql` is a read-only snapshot maintained by a bot PR. Auth, Storage and Realtime use the Supabase client directly.
+The app uses React Navigation native stacks. No session opens `Unauthenticated`. A session opens `Authorized`, which holds the signed-in tabs until a membership can choose `Teacher` or `Student`. The app also uses Apollo Client 4 (hooks from `@apollo/client/react`) and GraphQL Code Generator (client preset). `schema.graphql` is a read-only snapshot maintained by a bot PR. Auth, Storage and Realtime use the Supabase client directly.
 
 ## Before you start
 

@@ -8,6 +8,7 @@
     "scheme": "pantheraapp",
     "userInterfaceStyle": "automatic",
     "ios": {
+      "deploymentTarget": "16.4",
       "supportsTablet": true,
       "bundleIdentifier": "com.panthera.app",
       "infoPlist": {
