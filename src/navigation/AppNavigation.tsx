@@ -5,10 +5,10 @@ import {
   type Theme,
 } from "@react-navigation/native";
 import { useEffect } from "react";
-import { UnistylesRuntime, useUnistyles } from "react-native-unistyles";
+import { useUnistyles } from "react-native-unistyles";
 
 import { navigationRef } from "@/lib/navigation";
-import { THEME } from "@/theme/preference";
+import { syncRootViewBackground, THEME } from "@/theme/preference";
 
 import RootNavigator from "./RootNavigator";
 
@@ -44,9 +44,7 @@ export function AppNavigation() {
   const themeName = rt.themeName === THEME.DARK ? THEME.DARK : THEME.LIGHT;
 
   useEffect(() => {
-    UnistylesRuntime.setRootViewBackgroundColor(
-      theme.colors.background.primary,
-    );
+    syncRootViewBackground();
   }, [theme.colors.background.primary]);
 
   return (

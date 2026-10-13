@@ -20,9 +20,13 @@ export function readThemePreference(): THEME {
   return isThemePreference(stored) ? stored : THEME.SYSTEM;
 }
 
-export function saveThemePreference(preference: THEME): void {
-  storage.set("panthera.theme", preference);
+export function syncRootViewBackground(): void {
+  UnistylesRuntime.setRootViewBackgroundColor(
+    UnistylesRuntime.getTheme().colors.background.primary,
+  );
+}
 
+export function applyThemePreference(preference: THEME): void {
   if (preference === THEME.SYSTEM) {
     UnistylesRuntime.setAdaptiveThemes(true);
   } else {
@@ -30,7 +34,10 @@ export function saveThemePreference(preference: THEME): void {
     UnistylesRuntime.setTheme(preference);
   }
 
-  UnistylesRuntime.setRootViewBackgroundColor(
-    UnistylesRuntime.getTheme().colors.background.primary,
-  );
+  syncRootViewBackground();
+}
+
+export function saveThemePreference(preference: THEME): void {
+  storage.set("panthera.theme", preference);
+  applyThemePreference(preference);
 }

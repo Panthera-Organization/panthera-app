@@ -1,4 +1,4 @@
-import { StyleSheet, UnistylesRuntime } from "react-native-unistyles";
+import { StyleSheet } from "react-native-unistyles";
 
 import { readThemePreference, THEME } from "@/theme/preference";
 
@@ -74,7 +74,3 @@ StyleSheet.configure({
       ? { adaptiveThemes: true }
       : { initialTheme: preference },
 });
-
-UnistylesRuntime.setRootViewBackgroundColor(
-  UnistylesRuntime.getTheme().colors.background.primary,
-);
