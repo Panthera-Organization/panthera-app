@@ -1,4 +1,6 @@
-import { NavigationContainer } from "@react-navigation/native";
+// Keep this import first. Unistyles reads the theme before any stylesheet is created.
+import "@/theme/unistyles";
+
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
@@ -6,8 +8,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import "react-native-reanimated";
 
 import { initI18n } from "@/i18n";
-import { navigationRef } from "@/lib/navigation";
-import RootNavigator from "@/navigation/RootNavigator";
+import { AppNavigation } from "@/navigation/AppNavigation";
 import { AuthProvider, useAuth } from "@/state/AuthContext";
 
 SplashScreen.preventAutoHideAsync();
@@ -51,11 +52,7 @@ function AppShell() {
     return null;
   }
 
-  return (
-    <NavigationContainer ref={navigationRef}>
-      <RootNavigator />
-    </NavigationContainer>
-  );
+  return <AppNavigation />;
 }
 
 export default function App() {

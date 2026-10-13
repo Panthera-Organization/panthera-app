@@ -18,5 +18,11 @@
     "label": "Język",
     "english": "Angielski",
     "polish": "Polski"
+  },
+  "theme": {
+    "label": "Motyw",
+    "system": "Systemowy",
+    "light": "Jasny",
+    "dark": "Ciemny"
   }
 }

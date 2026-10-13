@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
+import { StyleSheet } from "react-native-unistyles";
 
 export default function HomeScreen() {
   const { t } = useTranslation();
@@ -11,14 +12,16 @@ export default function HomeScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create((theme) => ({
   container: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: theme.colors.background.primary,
   },
   title: {
+    color: theme.colors.text.primary,
     fontSize: 20,
     fontWeight: "bold",
   },
-});
+}));

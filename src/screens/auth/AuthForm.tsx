@@ -3,11 +3,11 @@ import {
   KeyboardAvoidingView,
   Platform,
   Pressable,
-  StyleSheet,
   Text,
   TextInput,
   View,
 } from "react-native";
+import { StyleSheet } from "react-native-unistyles";
 
 import type { AuthCredentials } from "@/state/AuthContext";
 import { runAuthAction } from "@/state/runAuthAction";
@@ -105,33 +105,36 @@ export default function AuthForm({
   );
 }
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create((theme) => ({
   container: {
     flex: 1,
     justifyContent: "center",
     padding: 24,
+    backgroundColor: theme.colors.background.primary,
   },
   label: {
+    color: theme.colors.text.primary,
     fontSize: 16,
     marginBottom: 8,
   },
   input: {
-    borderColor: "#ccc",
+    borderColor: theme.colors.border.primary,
     borderRadius: 8,
     borderWidth: 1,
+    color: theme.colors.text.primary,
     fontSize: 16,
     marginBottom: 16,
     paddingHorizontal: 12,
     paddingVertical: 10,
   },
   error: {
-    color: "#b00020",
+    color: theme.colors.status.error,
     fontSize: 16,
     marginBottom: 16,
   },
   button: {
     alignItems: "center",
-    backgroundColor: "#2f95dc",
+    backgroundColor: theme.colors.button.primary,
     borderRadius: 8,
     paddingVertical: 12,
   },
@@ -139,7 +142,7 @@ const styles = StyleSheet.create({
     opacity: 0.4,
   },
   buttonText: {
-    color: "#fff",
+    color: theme.colors.text.inverse,
     fontSize: 16,
     fontWeight: "600",
   },
@@ -149,7 +152,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
   },
   alternateText: {
-    color: "#2f95dc",
+    color: theme.colors.button.secondary,
     fontSize: 16,
   },
-});
+}));
