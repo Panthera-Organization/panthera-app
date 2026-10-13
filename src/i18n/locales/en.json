@@ -18,5 +18,11 @@
     "label": "Language",
     "english": "English",
     "polish": "Polish"
+  },
+  "theme": {
+    "label": "Theme",
+    "system": "System",
+    "light": "Light",
+    "dark": "Dark"
   }
 }

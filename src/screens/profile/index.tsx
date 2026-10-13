@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
+import { StyleSheet } from "react-native-unistyles";
 
 import { LanguageDropdown } from "@/components/LanguageDropdown";
+import { ThemeDropdown } from "@/components/ThemeDropdown";
 import { useAuth } from "@/state/AuthContext";
 import { runAuthAction } from "@/state/runAuthAction";
 
@@ -36,31 +38,34 @@ export default function ProfileScreen() {
         <Text style={styles.buttonText}>Sign out</Text>
       </Pressable>
       <LanguageDropdown />
+      <ThemeDropdown />
     </View>
   );
 }
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create((theme) => ({
   container: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
     padding: 24,
+    backgroundColor: theme.colors.background.primary,
   },
   title: {
+    color: theme.colors.text.primary,
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 24,
   },
   error: {
-    color: "#b00020",
+    color: theme.colors.status.error,
     fontSize: 16,
     marginBottom: 16,
     textAlign: "center",
   },
   button: {
     alignItems: "center",
-    backgroundColor: "#2f95dc",
+    backgroundColor: theme.colors.button.primary,
     borderRadius: 8,
     paddingHorizontal: 24,
     paddingVertical: 12,
@@ -69,8 +74,8 @@ const styles = StyleSheet.create({
     opacity: 0.4,
   },
   buttonText: {
-    color: "#fff",
+    color: theme.colors.text.inverse,
     fontSize: 16,
     fontWeight: "600",
   },
-});
+}));

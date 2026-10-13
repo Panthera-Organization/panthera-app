@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
+import { StyleSheet } from "react-native-unistyles";
 
 import {
   APP_LANGUAGES,
@@ -59,24 +60,26 @@ export function LanguageDropdown() {
   );
 }
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create((theme) => ({
   wrap: {
     marginTop: 24,
     minWidth: 180,
   },
   control: {
-    borderColor: "#000",
+    borderColor: theme.colors.border.primary,
     borderRadius: 8,
     borderWidth: 1,
     paddingHorizontal: 16,
     paddingVertical: 10,
   },
   controlText: {
+    color: theme.colors.text.primary,
     fontSize: 16,
     textAlign: "center",
   },
   menu: {
-    borderColor: "#000",
+    backgroundColor: theme.colors.background.primary,
+    borderColor: theme.colors.border.primary,
     borderRadius: 8,
     borderTopWidth: 0,
     borderWidth: 1,
@@ -87,10 +90,11 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   optionText: {
+    color: theme.colors.text.primary,
     fontSize: 16,
     textAlign: "center",
   },
   optionSelected: {
     fontWeight: "bold",
   },
-});
+}));
