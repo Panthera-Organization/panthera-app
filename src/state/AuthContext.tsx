@@ -11,38 +11,37 @@ import type { Session } from "@supabase/supabase-js";
 
 import { supabase } from "@/lib/supabase";
 
+export type AuthCredentials = {
+  email: string;
+  password: string;
+};
+
 type AuthContextValue = {
   session: Session | null;
   isReady: boolean;
-  signIn: (email: string, password: string) => Promise<string | null>;
-  signUp: (email: string, password: string) => Promise<string | null>;
+  signIn: (credentials: AuthCredentials) => Promise<string | null>;
+  signUp: (credentials: AuthCredentials) => Promise<string | null>;
   signOut: () => Promise<string | null>;
 };
 
-async function signIn(email: string, password: string): Promise<string | null> {
+async function signIn(credentials: AuthCredentials): Promise<string | null> {
   if (!supabase) {
     return "Sign in is unavailable.";
   }
 
-  const { error } = await supabase.auth.signInWithPassword({
-    email: email.trim(),
-    password,
-  });
-
-  return error?.message ?? null;
+  const { error } = await supabase.auth.signInWithPassword(credentials);
+  const errorMessage = error?.message ?? null;
+  return errorMessage;
 }
 
-async function signUp(email: string, password: string): Promise<string | null> {
+async function signUp(credentials: AuthCredentials): Promise<string | null> {
   if (!supabase) {
     return "Create account is unavailable.";
   }
 
-  const { error } = await supabase.auth.signUp({
-    email: email.trim(),
-    password,
-  });
-
-  return error?.message ?? null;
+  const { error } = await supabase.auth.signUp(credentials);
+  const errorMessage = error?.message ?? null;
+  return errorMessage;
 }
 
 async function signOut(): Promise<string | null> {

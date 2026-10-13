@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import { useAuth } from "@/state/AuthContext";
+import { runAuthAction } from "@/state/runAuthAction";
 
 export default function ProfileScreen() {
   const { signOut } = useAuth();
@@ -13,13 +14,7 @@ export default function ProfileScreen() {
       return;
     }
 
-    setIsSubmitting(true);
-    setErrorMessage(null);
-    const message = await signOut();
-    if (message) {
-      setErrorMessage(message);
-    }
-    setIsSubmitting(false);
+    await runAuthAction(signOut, setIsSubmitting, setErrorMessage);
   }
 
   return (

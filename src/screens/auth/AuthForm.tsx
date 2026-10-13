@@ -9,12 +9,15 @@ import {
   View,
 } from "react-native";
 
+import type { AuthCredentials } from "@/state/AuthContext";
+import { runAuthAction } from "@/state/runAuthAction";
+
 const MIN_PASSWORD_LENGTH = 6;
 
 type AuthFormProps = {
   submitLabel: string;
   alternateLabel: string;
-  onSubmit: (email: string, password: string) => Promise<string | null>;
+  onSubmit: (credentials: AuthCredentials) => Promise<string | null>;
   onAlternate: () => void;
 };
 
@@ -39,13 +42,11 @@ export default function AuthForm({
       return;
     }
 
-    setIsSubmitting(true);
-    setErrorMessage(null);
-    const message = await onSubmit(email.trim(), password);
-    if (message) {
-      setErrorMessage(message);
-    }
-    setIsSubmitting(false);
+    await runAuthAction(
+      () => onSubmit({ email: email.trim(), password }),
+      setIsSubmitting,
+      setErrorMessage,
+    );
   }
 
   return (
