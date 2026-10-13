@@ -1,5 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { SymbolView } from "expo-symbols";
+import { useTranslation } from "react-i18next";
 
 import HomeScreen from "@/screens/home";
 import ProfileScreen from "@/screens/profile";
@@ -21,13 +22,15 @@ const tabIcon = (color: string) => (
 );
 
 export default function MainTabs() {
+  const { t } = useTranslation();
+
   return (
     <Tab.Navigator>
       <Tab.Screen
         name="Home"
         component={HomeScreen}
         options={{
-          title: "Home",
+          title: t("tabs.home"),
           tabBarIcon: ({ color }) => tabIcon(color),
         }}
       />
@@ -35,7 +38,7 @@ export default function MainTabs() {
         name="Profile"
         component={ProfileScreen}
         options={{
-          title: "Profile",
+          title: t("tabs.profile"),
           tabBarIcon: ({ color }) => tabIcon(color),
         }}
       />
