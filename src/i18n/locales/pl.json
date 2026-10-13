@@ -1,0 +1,22 @@
+{
+  "screens": {
+    "home": {
+      "title": "Ekran główny"
+    },
+    "profile": {
+      "title": "Ekran profilu"
+    },
+    "signedOut": {
+      "title": "Niezalogowany"
+    }
+  },
+  "tabs": {
+    "home": "Główna",
+    "profile": "Profil"
+  },
+  "language": {
+    "label": "Język",
+    "english": "Angielski",
+    "polish": "Polski"
+  }
+}

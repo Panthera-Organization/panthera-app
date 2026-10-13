@@ -1,0 +1,22 @@
+{
+  "screens": {
+    "home": {
+      "title": "Home Screen"
+    },
+    "profile": {
+      "title": "Profile Screen"
+    },
+    "signedOut": {
+      "title": "Signed out"
+    }
+  },
+  "tabs": {
+    "home": "Home",
+    "profile": "Profile"
+  },
+  "language": {
+    "label": "Language",
+    "english": "English",
+    "polish": "Polish"
+  }
+}
