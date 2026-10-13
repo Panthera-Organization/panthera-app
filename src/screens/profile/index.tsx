@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
+import { LanguageDropdown } from "@/components/LanguageDropdown";
 import { useAuth } from "@/state/AuthContext";
 import { runAuthAction } from "@/state/runAuthAction";
 
 export default function ProfileScreen() {
+  const { t } = useTranslation();
   const { signOut } = useAuth();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -19,7 +22,7 @@ export default function ProfileScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Profile Screen</Text>
+      <Text style={styles.title}>{t("screens.profile.title")}</Text>
       {errorMessage ? <Text style={styles.error}>{errorMessage}</Text> : null}
       <Pressable
         accessibilityRole="button"
@@ -32,6 +35,7 @@ export default function ProfileScreen() {
       >
         <Text style={styles.buttonText}>Sign out</Text>
       </Pressable>
+      <LanguageDropdown />
     </View>
   );
 }
