@@ -6,7 +6,8 @@ export type MainTabParamList = {
 };
 
 export type UnauthenticatedStackParamList = {
-  SignedOut: undefined;
+  SignIn: undefined;
+  CreateAccount: undefined;
 };
 
 export type AuthorizedStackParamList = {

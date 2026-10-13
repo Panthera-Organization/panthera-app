@@ -2,6 +2,7 @@ import {
   createContext,
   useContext,
   useEffect,
+  useMemo,
   useState,
   type ReactNode,
 } from "react";
@@ -13,7 +14,46 @@ import { supabase } from "@/lib/supabase";
 type AuthContextValue = {
   session: Session | null;
   isReady: boolean;
+  signIn: (email: string, password: string) => Promise<string | null>;
+  signUp: (email: string, password: string) => Promise<string | null>;
+  signOut: () => Promise<string | null>;
 };
+
+async function signIn(email: string, password: string): Promise<string | null> {
+  if (!supabase) {
+    return "Sign in is unavailable.";
+  }
+
+  const { error } = await supabase.auth.signInWithPassword({
+    email: email.trim(),
+    password,
+  });
+
+  return error?.message ?? null;
+}
+
+async function signUp(email: string, password: string): Promise<string | null> {
+  if (!supabase) {
+    return "Create account is unavailable.";
+  }
+
+  const { error } = await supabase.auth.signUp({
+    email: email.trim(),
+    password,
+  });
+
+  return error?.message ?? null;
+}
+
+async function signOut(): Promise<string | null> {
+  if (!supabase) {
+    return "Sign out is unavailable.";
+  }
+
+  const { error } = await supabase.auth.signOut();
+
+  return error?.message ?? null;
+}
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
@@ -53,10 +93,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
   }, []);
 
+  const value = useMemo(
+    () => ({
+      session,
+      isReady,
+      signIn,
+      signUp,
+      signOut,
+    }),
+    [session, isReady],
+  );
+
   return (
-    <AuthContext.Provider value={{ session, isReady }}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
   );
 }
 
