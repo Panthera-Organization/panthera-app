@@ -1,14 +1,10 @@
+import { Button, Column, Spacer, TextInput } from "@expo/ui";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  KeyboardAvoidingView,
-  Platform,
-  Pressable,
-  Text,
-  TextInput,
-} from "react-native";
 import { StyleSheet } from "react-native-unistyles";
 
+import { Host } from "@/components/Host";
+import { Text } from "@/components/Text";
 import type { AuthCredentials } from "@/state/AuthContext";
 import { runAuthAction } from "@/state/runAuthAction";
 
@@ -51,109 +47,85 @@ export default function AuthForm({
   }
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : undefined}
-      style={styles.container}
+    <Host
+      ignoreSafeArea="keyboard"
+      style={styles.host}
+      useViewportSizeMeasurement
     >
-      <Text style={styles.label}>{t("screens.auth.email")}</Text>
-      <TextInput
-        autoCapitalize="none"
-        autoComplete="email"
-        autoCorrect={false}
-        keyboardType="email-address"
-        onChangeText={(value) => {
-          setEmail(value);
-          setErrorMessage(null);
-        }}
-        style={styles.input}
-        textContentType="emailAddress"
-        value={email}
-      />
-      <Text style={styles.label}>{t("screens.auth.password")}</Text>
-      <TextInput
-        autoCapitalize="none"
-        autoComplete="password"
-        onChangeText={(value) => {
-          setPassword(value);
-          setErrorMessage(null);
-        }}
-        secureTextEntry
-        style={styles.input}
-        textContentType="password"
-        value={password}
-      />
-      {errorMessage ? <Text style={styles.error}>{errorMessage}</Text> : null}
-      <Pressable
-        accessibilityRole="button"
-        accessibilityState={{ disabled: !canSubmit }}
-        disabled={!canSubmit}
-        onPress={() => {
-          void handleSubmit();
-        }}
-        style={[styles.button, !canSubmit && styles.buttonDisabled]}
-      >
-        <Text style={styles.buttonText}>{submitLabel}</Text>
-      </Pressable>
-      <Pressable
-        accessibilityRole="button"
-        disabled={isSubmitting}
-        onPress={onAlternate}
-        style={styles.alternate}
-      >
-        <Text style={styles.alternateText}>{alternateLabel}</Text>
-      </Pressable>
-    </KeyboardAvoidingView>
+      <Column spacing={8} style={styles.column}>
+        <Spacer flexible />
+        <Text textStyle={styles.label}>{t("screens.auth.email")}</Text>
+        <TextInput
+          autoCapitalize="none"
+          autoComplete="email"
+          autoCorrect={false}
+          keyboardType="email-address"
+          onChangeText={(value) => {
+            setEmail(value);
+            setErrorMessage(null);
+          }}
+          style={styles.input}
+          textStyle={styles.inputText}
+        />
+        <Text textStyle={styles.label}>{t("screens.auth.password")}</Text>
+        <TextInput
+          autoCapitalize="none"
+          autoComplete="password"
+          onChangeText={(value) => {
+            setPassword(value);
+            setErrorMessage(null);
+          }}
+          secureTextEntry
+          style={styles.input}
+          textStyle={styles.inputText}
+        />
+        {errorMessage ? (
+          <Text textStyle={styles.error}>{errorMessage}</Text>
+        ) : null}
+        <Button
+          disabled={!canSubmit}
+          label={submitLabel}
+          onPress={() => {
+            void handleSubmit();
+          }}
+        />
+        <Button
+          disabled={isSubmitting}
+          label={alternateLabel}
+          onPress={onAlternate}
+          variant="text"
+        />
+        <Spacer flexible />
+      </Column>
+    </Host>
   );
 }
 
 const styles = StyleSheet.create((theme) => ({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    padding: 24,
-    backgroundColor: theme.colors.background.primary,
+  column: {
+    width: "100%",
   },
-  label: {
-    color: theme.colors.text.primary,
+  error: {
+    color: theme.colors.status.error,
     fontSize: 16,
-    marginBottom: 8,
+  },
+  host: {
+    backgroundColor: theme.colors.background.primary,
+    flex: 1,
+    padding: 24,
   },
   input: {
     borderColor: theme.colors.border.primary,
     borderRadius: 8,
     borderWidth: 1,
-    color: theme.colors.text.primary,
-    fontSize: 16,
-    marginBottom: 16,
     paddingHorizontal: 12,
     paddingVertical: 10,
   },
-  error: {
-    color: theme.colors.status.error,
+  inputText: {
+    color: theme.colors.text.primary,
     fontSize: 16,
-    marginBottom: 16,
   },
-  button: {
-    alignItems: "center",
-    backgroundColor: theme.colors.button.primary,
-    borderRadius: 8,
-    paddingVertical: 12,
-  },
-  buttonDisabled: {
-    opacity: 0.4,
-  },
-  buttonText: {
-    color: theme.colors.text.inverse,
-    fontSize: 16,
-    fontWeight: "600",
-  },
-  alternate: {
-    alignItems: "center",
-    marginTop: 16,
-    paddingVertical: 8,
-  },
-  alternateText: {
-    color: theme.colors.button.secondary,
+  label: {
     fontSize: 16,
   },
 }));

@@ -1,26 +1,30 @@
+import { Column, Spacer } from "@expo/ui";
 import { useTranslation } from "react-i18next";
-import { Text, View } from "react-native";
 import { StyleSheet } from "react-native-unistyles";
+
+import { Host } from "@/components/Host";
+import { Text } from "@/components/Text";
 
 export default function HomeScreen() {
   const { t } = useTranslation();
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{t("screens.home.title")}</Text>
-    </View>
+    <Host style={styles.host} useViewportSizeMeasurement>
+      <Column alignment="center">
+        <Spacer flexible />
+        <Text textStyle={styles.title}>{t("screens.home.title")}</Text>
+        <Spacer flexible />
+      </Column>
+    </Host>
   );
 }
 
 const styles = StyleSheet.create((theme) => ({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+  host: {
     backgroundColor: theme.colors.background.primary,
+    flex: 1,
   },
   title: {
-    color: theme.colors.text.primary,
     fontSize: 20,
     fontWeight: "bold",
   },
