@@ -35,7 +35,7 @@ export default function ProfileScreen() {
         }}
         style={[styles.button, isSubmitting && styles.buttonDisabled]}
       >
-        <Text style={styles.buttonText}>Sign out</Text>
+        <Text style={styles.buttonText}>{t("screens.auth.signOut")}</Text>
       </Pressable>
       <LanguageDropdown />
       <ThemeDropdown />

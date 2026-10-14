@@ -59,7 +59,10 @@ export function OptionDropdown<Value extends string>({
                 testID={optionTestID(option.value)}
               >
                 <Text
-                  style={[styles.optionText, isSelected && styles.optionSelected]}
+                  style={[
+                    styles.optionText,
+                    isSelected && styles.optionSelected,
+                  ]}
                 >
                   {option.label}
                 </Text>

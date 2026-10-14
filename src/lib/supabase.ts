@@ -2,17 +2,23 @@ import "react-native-url-polyfill/auto";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
-type SupabaseTarget = "local" | "staging";
+const SUPABASE_TARGET_LOCAL = "local";
+const SUPABASE_TARGET_STAGING = "staging";
+
+type SupabaseTarget =
+  typeof SUPABASE_TARGET_LOCAL | typeof SUPABASE_TARGET_STAGING;
 
 function readTarget(): SupabaseTarget {
-  return process.env.EXPO_PUBLIC_SUPABASE_ENV === "staging" ? "staging" : "local";
+  return process.env.EXPO_PUBLIC_SUPABASE_ENV === SUPABASE_TARGET_STAGING
+    ? SUPABASE_TARGET_STAGING
+    : SUPABASE_TARGET_LOCAL;
 }
 
 function readSupabaseConfig(target: SupabaseTarget): {
   url: string | undefined;
   anonKey: string | undefined;
 } {
-  if (target === "staging") {
+  if (target === SUPABASE_TARGET_STAGING) {
     return {
       url: process.env.EXPO_PUBLIC_SUPABASE_STAGING_URL,
       anonKey: process.env.EXPO_PUBLIC_SUPABASE_STAGING_ANON_KEY,
@@ -25,9 +31,8 @@ function readSupabaseConfig(target: SupabaseTarget): {
   };
 }
 
-const { url: supabaseUrl, anonKey: supabaseAnonKey } = readSupabaseConfig(
-  readTarget(),
-);
+const { url: supabaseUrl, anonKey: supabaseAnonKey } =
+  readSupabaseConfig(readTarget());
 
 export const supabase: SupabaseClient | null =
   supabaseUrl && supabaseAnonKey

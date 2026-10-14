@@ -1,0 +1,32 @@
+---
+description: Write every git commit message in Conventional Commits form
+alwaysApply: true
+---
+
+# Conventional commits
+
+Every commit message uses [Conventional Commits](https://www.conventionalcommits.org/).
+
+```
+<type>: <summary>
+```
+
+The summary starts with a capital letter. It says why the change exists. Keep it to one line.
+
+Use these types:
+
+- `feat` for a user-facing change
+- `fix` for a bug fix
+- `chore` for tooling, config, or maintenance
+- `refactor` for a behavior-neutral code change
+- `docs` for documentation only
+- `test` for tests only
+- `ci` for GitHub Actions and other CI
+
+```
+feat: Sign in with email and password
+chore: Add ESLint and Prettier so hard-coded text fails lint
+fix: Start in English when language setup fails
+```
+
+Do not write a summary with no type. Do not use `Feat:` or `FEAT:`.

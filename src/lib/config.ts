@@ -1,4 +1,4 @@
-import Constants from 'expo-constants';
+import Constants from "expo-constants";
 
 /**
  * Typed app config from environment / expo-constants.
@@ -12,7 +12,7 @@ export type Config = {
 function getConfig(): Config {
   const extra = Constants.expoConfig?.extra ?? {};
   return {
-    apiBaseUrl: (extra.apiBaseUrl as string) ?? '',
+    apiBaseUrl: (extra.apiBaseUrl as string) ?? "",
   };
 }
 

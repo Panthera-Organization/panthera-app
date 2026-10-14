@@ -1,11 +1,11 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   KeyboardAvoidingView,
   Platform,
   Pressable,
   Text,
   TextInput,
-  View,
 } from "react-native";
 import { StyleSheet } from "react-native-unistyles";
 
@@ -27,6 +27,7 @@ export default function AuthForm({
   onSubmit,
   onAlternate,
 }: AuthFormProps) {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -54,7 +55,7 @@ export default function AuthForm({
       behavior={Platform.OS === "ios" ? "padding" : undefined}
       style={styles.container}
     >
-      <Text style={styles.label}>Email</Text>
+      <Text style={styles.label}>{t("screens.auth.email")}</Text>
       <TextInput
         autoCapitalize="none"
         autoComplete="email"
@@ -68,7 +69,7 @@ export default function AuthForm({
         textContentType="emailAddress"
         value={email}
       />
-      <Text style={styles.label}>Password</Text>
+      <Text style={styles.label}>{t("screens.auth.password")}</Text>
       <TextInput
         autoCapitalize="none"
         autoComplete="password"
