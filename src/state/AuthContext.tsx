@@ -1,3 +1,4 @@
+import { t } from "i18next";
 import {
   createContext,
   useContext,
@@ -26,7 +27,7 @@ type AuthContextValue = {
 
 async function signIn(credentials: AuthCredentials): Promise<string | null> {
   if (!supabase) {
-    return "Sign in is unavailable.";
+    return t("screens.auth.signInUnavailable");
   }
 
   const { error } = await supabase.auth.signInWithPassword(credentials);
@@ -36,7 +37,7 @@ async function signIn(credentials: AuthCredentials): Promise<string | null> {
 
 async function signUp(credentials: AuthCredentials): Promise<string | null> {
   if (!supabase) {
-    return "Create account is unavailable.";
+    return t("screens.auth.createAccountUnavailable");
   }
 
   const { error } = await supabase.auth.signUp(credentials);
@@ -46,7 +47,7 @@ async function signUp(credentials: AuthCredentials): Promise<string | null> {
 
 async function signOut(): Promise<string | null> {
   if (!supabase) {
-    return "Sign out is unavailable.";
+    return t("screens.auth.signOutUnavailable");
   }
 
   const { error } = await supabase.auth.signOut();
@@ -58,13 +59,11 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
-  const [isReady, setIsReady] = useState(false);
+  const [isReady, setIsReady] = useState(supabase === null);
 
   useEffect(() => {
     const client = supabase;
     if (!client) {
-      setSession(null);
-      setIsReady(true);
       return;
     }
 
@@ -103,9 +102,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     [session, isReady],
   );
 
-  return (
-    <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth(): AuthContextValue {

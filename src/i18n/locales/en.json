@@ -8,6 +8,20 @@
     },
     "signedOut": {
       "title": "Signed out"
+    },
+    "signIn": {
+      "title": "Sign in"
+    },
+    "createAccount": {
+      "title": "Create account"
+    },
+    "auth": {
+      "email": "Email",
+      "password": "Password",
+      "signOut": "Sign out",
+      "signInUnavailable": "Sign in is unavailable.",
+      "createAccountUnavailable": "Create account is unavailable.",
+      "signOutUnavailable": "Sign out is unavailable."
     }
   },
   "tabs": {

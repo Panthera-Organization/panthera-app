@@ -8,6 +8,20 @@
     },
     "signedOut": {
       "title": "Niezalogowany"
+    },
+    "signIn": {
+      "title": "Zaloguj się"
+    },
+    "createAccount": {
+      "title": "Utwórz konto"
+    },
+    "auth": {
+      "email": "E-mail",
+      "password": "Hasło",
+      "signOut": "Wyloguj się",
+      "signInUnavailable": "Logowanie jest niedostępne.",
+      "createAccountUnavailable": "Tworzenie konta jest niedostępne.",
+      "signOutUnavailable": "Wylogowanie jest niedostępne."
     }
   },
   "tabs": {

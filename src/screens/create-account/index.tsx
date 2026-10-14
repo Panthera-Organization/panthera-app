@@ -1,4 +1,5 @@
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { useTranslation } from "react-i18next";
 
 import AuthForm from "@/screens/auth/AuthForm";
 import { useAuth } from "@/state/AuthContext";
@@ -10,16 +11,17 @@ type Props = NativeStackScreenProps<
 >;
 
 export default function CreateAccountScreen({ navigation }: Props) {
+  const { t } = useTranslation();
   const { signUp } = useAuth();
 
   return (
     <AuthForm
-      alternateLabel="Sign in"
+      alternateLabel={t("screens.signIn.title")}
       onAlternate={() => {
         navigation.navigate("SignIn");
       }}
       onSubmit={signUp}
-      submitLabel="Create account"
+      submitLabel={t("screens.createAccount.title")}
     />
   );
 }
