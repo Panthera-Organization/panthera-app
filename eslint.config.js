@@ -68,7 +68,12 @@ module.exports = defineConfig([
             ],
           },
           words: {
-            exclude: [...i18nDefaults.words.exclude, "#[0-9A-Fa-f]+"],
+            exclude: [
+              ...i18nDefaults.words.exclude.filter(
+                (pattern) => pattern !== "[A-Z_-]+",
+              ),
+              "#[0-9A-Fa-f]+",
+            ],
           },
         },
       ],
