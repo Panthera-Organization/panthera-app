@@ -10,7 +10,7 @@ export default function HomeScreen() {
 
   return (
     <Host style={styles.host} useViewportSizeMeasurement>
-      <Column alignment="center">
+      <Column alignment="center" style={styles.column}>
         <Spacer flexible />
         <Text textStyle={styles.title}>{t("screens.home.title")}</Text>
         <Spacer flexible />
@@ -19,9 +19,11 @@ export default function HomeScreen() {
   );
 }
 
-const styles = StyleSheet.create((theme) => ({
+const styles = StyleSheet.create(() => ({
+  column: {
+    width: "100%",
+  },
   host: {
-    backgroundColor: theme.colors.background.primary,
     flex: 1,
   },
   title: {

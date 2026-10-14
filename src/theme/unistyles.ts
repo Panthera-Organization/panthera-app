@@ -1,6 +1,14 @@
 import { StyleSheet } from "react-native-unistyles";
 
-import { readThemePreference, THEME } from "@/theme/preference";
+import {
+  applyThemePreference,
+  readThemePreference,
+  THEME,
+} from "@/theme/preference";
+
+// Same value in light and dark. Host applies it as seedColor, so a theme
+// change does not render Host to retint buttons.
+export const buttonSeedColor = "#2f95dc";
 
 const lightTheme = {
   colors: {
@@ -15,8 +23,8 @@ const lightTheme = {
       primary: "#ccc",
     },
     button: {
-      primary: "#2f95dc",
-      secondary: "#2f95dc",
+      primary: buttonSeedColor,
+      secondary: buttonSeedColor,
     },
     status: {
       error: "#b00020",
@@ -41,8 +49,8 @@ const darkTheme = {
       primary: "#444",
     },
     button: {
-      primary: "#2f95dc",
-      secondary: "#2f95dc",
+      primary: buttonSeedColor,
+      secondary: buttonSeedColor,
     },
     status: {
       error: "#ff8a80",
@@ -74,3 +82,5 @@ StyleSheet.configure({
       ? { adaptiveThemes: true }
       : { initialTheme: preference },
 });
+
+applyThemePreference(preference);

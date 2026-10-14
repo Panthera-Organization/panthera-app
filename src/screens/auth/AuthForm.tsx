@@ -1,10 +1,12 @@
-import { Button, Column, Spacer, TextInput } from "@expo/ui";
+import { Button, Column, Spacer } from "@expo/ui";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Keyboard } from "react-native";
 import { StyleSheet } from "react-native-unistyles";
 
 import { Host } from "@/components/Host";
 import { Text } from "@/components/Text";
+import { TextInput } from "@/components/TextInput";
 import type { AuthCredentials } from "@/state/AuthContext";
 import { runAuthAction } from "@/state/runAuthAction";
 
@@ -47,12 +49,14 @@ export default function AuthForm({
   }
 
   return (
-    <Host
-      ignoreSafeArea="keyboard"
-      style={styles.host}
-      useViewportSizeMeasurement
-    >
-      <Column spacing={8} style={styles.column}>
+    <Host style={styles.host} useViewportSizeMeasurement>
+      <Column
+        onPress={() => {
+          Keyboard.dismiss();
+        }}
+        spacing={8}
+        style={styles.column}
+      >
         <Spacer flexible />
         <Text textStyle={styles.label}>{t("screens.auth.email")}</Text>
         <TextInput
@@ -103,6 +107,7 @@ export default function AuthForm({
 
 const styles = StyleSheet.create((theme) => ({
   column: {
+    paddingHorizontal: 24,
     width: "100%",
   },
   error: {
@@ -110,9 +115,7 @@ const styles = StyleSheet.create((theme) => ({
     fontSize: 16,
   },
   host: {
-    backgroundColor: theme.colors.background.primary,
     flex: 1,
-    padding: 24,
   },
   input: {
     borderColor: theme.colors.border.primary,
@@ -122,7 +125,6 @@ const styles = StyleSheet.create((theme) => ({
     paddingVertical: 10,
   },
   inputText: {
-    color: theme.colors.text.primary,
     fontSize: 16,
   },
   label: {
