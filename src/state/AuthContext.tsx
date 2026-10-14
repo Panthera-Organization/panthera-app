@@ -59,13 +59,11 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
-  const [isReady, setIsReady] = useState(false);
+  const [isReady, setIsReady] = useState(supabase === null);
 
   useEffect(() => {
     const client = supabase;
     if (!client) {
-      setSession(null);
-      setIsReady(true);
       return;
     }
 
