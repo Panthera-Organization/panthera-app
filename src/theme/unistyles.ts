@@ -6,9 +6,7 @@ import {
   THEME,
 } from "@/theme/preference";
 
-// Same value in light and dark. Host applies it as seedColor, so a theme
-// change does not render Host to retint buttons.
-export const buttonSeedColor = "#2f95dc";
+export const hostSeedColor = "#2f95dc";
 
 const lightTheme = {
   colors: {
@@ -23,8 +21,8 @@ const lightTheme = {
       primary: "#ccc",
     },
     button: {
-      primary: buttonSeedColor,
-      secondary: buttonSeedColor,
+      primary: "#2f95dc",
+      secondary: "#1b6ca8",
     },
     status: {
       error: "#b00020",
@@ -49,8 +47,8 @@ const darkTheme = {
       primary: "#444",
     },
     button: {
-      primary: buttonSeedColor,
-      secondary: buttonSeedColor,
+      primary: "#8ec8ff",
+      secondary: "#4a90c4",
     },
     status: {
       error: "#ff8a80",

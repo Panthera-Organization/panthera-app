@@ -22,7 +22,7 @@ Unistyles updates a React Native style on the shadow tree. Expo UI reads props s
 5. Leave color props off the component. Omitted colors follow the appearance from step 4.
 6. When a component must show the saved theme, call `readThemePreference()` during render. Call `saveThemePreference` before that render.
 
-The host wrapper sets `seedColor` from `buttonSeedColor` in `src/theme/unistyles.ts`. That value is the same in light and dark. The tint reaches every Expo UI control in the subtree, and a theme change does not render the host.
+`seedColor` and `hostSeedColor` are fallbacks. They stay the same in light and dark. A change to either value is a new prop, and that prop renders the component again. Put a color that differs by theme in the theme objects in `src/theme/unistyles.ts`. Read it with `StyleSheet.create((theme) => ...)`. That path updates the shadow tree and does not render the component.
 
 ## Avoid these steps
 
@@ -31,7 +31,7 @@ The host wrapper sets `seedColor` from `buttonSeedColor` in `src/theme/unistyles
 - Do not pass `colorScheme` or `seedColor` on an Expo UI component. The appearance comes from `applyThemePreference`. The seed color comes from the host wrapper.
 - Do not read theme colors in render to set an Expo UI color prop. Platform colors follow `Appearance`. A React Native style color belongs in `StyleSheet.create`.
 - Do not store the theme in `useState` only to pass it back into an Expo UI value prop. Save first. The next render calls `readThemePreference()`.
-- Do not use a different seed color for light and dark. The host would then render again to retint every control.
+- Do not give `seedColor` or `hostSeedColor` one value for light and another for dark. Put that difference in the theme objects in `src/theme/unistyles.ts`.
 
 `useUnistyles` stays on the React Navigation theme only. Native tabs read `theme.dark` and `theme.colors` from that theme object. The render continues through the navigator and the mounted screens. Do not add the hook to an Expo UI component to copy that pattern.
 
