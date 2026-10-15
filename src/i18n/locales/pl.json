@@ -1,7 +1,11 @@
 {
   "screens": {
     "home": {
-      "title": "Ekran główny"
+      "title": "Ekran główny",
+      "loading": "Ładowanie",
+      "sessionExpired": "Sesja wygasła",
+      "noNameYet": "Brak imienia",
+      "retry": "Spróbuj ponownie"
     },
     "profile": {
       "title": "Ekran profilu"

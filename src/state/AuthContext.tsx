@@ -4,12 +4,14 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from "react";
 import { AppState } from "react-native";
 import type { Session } from "@supabase/supabase-js";
 
+import { apolloClient } from "@/lib/apollo";
 import { supabase } from "@/lib/supabase";
 
 export type AuthCredentials = {
@@ -60,6 +62,7 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [isReady, setIsReady] = useState(supabase === null);
+  const previousUserIdRef = useRef<string | null>(null);
 
   useEffect(() => {
     const client = supabase;
@@ -69,7 +72,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     const {
       data: { subscription },
-    } = client.auth.onAuthStateChange((_event, nextSession) => {
+    } = client.auth.onAuthStateChange((event, nextSession) => {
+      const nextUserId = nextSession?.user.id ?? null;
+      const previousUserId = previousUserIdRef.current;
+
+      if (
+        event === "SIGNED_OUT" ||
+        (previousUserId !== null &&
+          nextUserId !== null &&
+          previousUserId !== nextUserId)
+      ) {
+        void apolloClient.clearStore();
+      }
+
+      previousUserIdRef.current = nextUserId;
       setSession(nextSession);
       setIsReady(true);
     });

@@ -1,0 +1,6 @@
+query HomeViewer {
+  viewer {
+    id
+    fullName
+  }
+}

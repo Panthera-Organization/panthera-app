@@ -7,11 +7,15 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
+    "codegen": "graphql-codegen --config codegen.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "jest",
     "lint": "expo lint . && prettier --check .",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
   "dependencies": {
+    "@apollo/client": "^4.3.3",
     "@expo/ui": "~58.0.16",
     "@react-native-async-storage/async-storage": "2.2.0",
     "@react-navigation/bottom-tabs": "^7.20.0",
@@ -28,6 +32,7 @@
     "expo-status-bar": "~58.0.2",
     "expo-symbols": "~58.0.3",
     "expo-web-browser": "~58.0.3",
+    "graphql": "^16",
     "i18next": "^26.4.4",
     "react": "19.3.0",
     "react-dom": "19.3.0",
@@ -41,10 +46,18 @@
     "react-native-unistyles": "3.4.0",
     "react-native-url-polyfill": "^4.0.0",
     "react-native-web": "~0.21.0",
-    "react-native-worklets": "0.13.0"
+    "react-native-worklets": "0.13.0",
+    "rxjs": "^7.8"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^7.4.6",
+    "@graphql-codegen/near-operation-file-preset": "^5.2.3",
+    "@graphql-codegen/typed-document-node": "^7.2.0",
+    "@graphql-codegen/typescript": "^6.1.2",
+    "@graphql-codegen/typescript-operations": "^6",
     "@swmansion/argent": "^0.28.0",
+    "@testing-library/react-native": "^14",
+    "@types/jest": "^30",
     "@types/react": "~19.3.0",
     "eslint": "^9.18.0",
     "eslint-config-expo": "~58.0.4",
@@ -52,8 +65,26 @@
     "eslint-plugin-i18next": "^6.1.5",
     "eslint-plugin-react-native": "^5.0.0",
     "eslint-plugin-react-native-unistyles": "^3.0.7",
+    "jest": "^30",
+    "jest-expo": "58.0.10",
     "prettier": "^3.9.10",
+    "test-renderer": "^1",
     "typescript": "~6.0.3"
   },
-  "private": true
+  "private": true,
+  "jest": {
+    "preset": "jest-expo",
+    "setupFiles": [
+      "@react-native-async-storage/async-storage/jest/async-storage-mock"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/jest.setup.tsx"
+    ],
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!(?:.pnpm/)?(?:(jest-)?react-native|@react-native(?:-community|-js-polyfills)?|@react-native|expo(?:nent)?|@expo(?:nent)?(?:/.*)?|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@sentry/react-native|native-base|react-native-svg|@apollo/client|rxjs|react-native-unistyles))"
+    ]
+  }
 }

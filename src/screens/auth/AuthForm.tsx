@@ -41,6 +41,10 @@ export default function AuthForm({
       return;
     }
 
+    // Close the keyboard before the screen changes. Home centers its content,
+    // so a keyboard that is still open moves that content when it dismisses.
+    Keyboard.dismiss();
+
     await runAuthAction(
       () => onSubmit({ email: email.trim(), password }),
       setIsSubmitting,

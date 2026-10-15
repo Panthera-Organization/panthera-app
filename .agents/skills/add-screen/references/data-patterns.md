@@ -2,21 +2,24 @@
 
 ## Operations
 
-Put operations in `<Screen>.operations.ts` and select only what the screen renders, with `id` on every object:
+Put operations in `<Screen>.graphql` next to the screen. Select only what the screen renders, with `id` on every object. Give each operation a unique name:
+
+```graphql
+# src/screens/homework-details/HomeworkDetails.graphql
+query HomeworkDetails($id: ID!) {
+  homework(id: $id) {
+    id
+    title
+    dueAt
+    exercises { id description imagePath }
+  }
+}
+```
+
+`bun run codegen` writes `HomeworkDetails.generated.ts` with a typed, pre-parsed document. Import the document. Do not write `gql` in `.ts` files:
 
 ```ts
-import { graphql } from '@/graphql/generated'
-
-export const HomeworkDetailsQuery = graphql(`
-  query HomeworkDetails($id: ID!) {
-    homework(id: $id) {
-      id
-      title
-      dueAt
-      exercises { id description imagePath }
-    }
-  }
-`)
+import { HomeworkDetailsDocument } from './HomeworkDetails.generated'
 ```
 
 ## Fetch policies
@@ -32,11 +35,11 @@ export const HomeworkDetailsQuery = graphql(`
 ```tsx
 import { useMutation } from '@apollo/client/react'
 
-const [createHomework, { loading: saving }] = useMutation(CreateHomeworkMutation)
+const [createHomework, { loading: saving }] = useMutation(CreateHomeworkDocument)
 
 await createHomework({
   variables: { input },
-  refetchQueries: [CalendarQuery],   // creates and deletes don't update lists by themselves
+  refetchQueries: [CalendarDocument],   // creates and deletes don't update lists by themselves
 })
 ```
 

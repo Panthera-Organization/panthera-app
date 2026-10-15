@@ -1,0 +1,2 @@
+src/graphql/__generated__/** linguist-generated=true
+**/*.generated.ts linguist-generated=true

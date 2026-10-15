@@ -16,6 +16,8 @@ module.exports = defineConfig([
     "android/**",
     ".agents/**",
     ".claude/**",
+    "src/graphql/__generated__/**",
+    "**/*.generated.ts",
   ]),
   expoConfig,
   {
@@ -94,6 +96,14 @@ module.exports = defineConfig([
           ignoreStyleProperties: false,
         },
       ],
+    },
+  },
+  {
+    files: ["**/__tests__/**", "jest.setup.tsx"],
+    rules: {
+      "@typescript-eslint/no-require-imports": "off",
+      "i18next/no-literal-string": "off",
+      "import/first": "off",
     },
   },
   prettierConfig,
