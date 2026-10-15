@@ -1,48 +1,36 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { SymbolView } from "expo-symbols";
+import { createNativeBottomTabNavigator } from "@react-navigation/bottom-tabs/unstable";
 import { useTranslation } from "react-i18next";
-import { useUnistyles } from "react-native-unistyles";
 
 import HomeScreen from "@/screens/home";
 import ProfileScreen from "@/screens/profile";
 
 import type { MainTabParamList } from "./types";
 
-const Tab = createBottomTabNavigator<MainTabParamList>();
+const Tab = createNativeBottomTabNavigator<MainTabParamList>();
 
-const tabIcon = (color: string) => (
-  <SymbolView
-    name={{
-      ios: "chevron.left.forwardslash.chevron.right",
-      android: "code",
-      web: "code",
-    }}
-    tintColor={color}
-    size={28}
-  />
-);
+/* eslint-disable i18next/no-literal-string -- Icon identifiers, not user-facing copy. */
+const homeTabIcon = {
+  type: "sfSymbol",
+  name: "house",
+} as const;
+
+const profileTabIcon = {
+  type: "sfSymbol",
+  name: "person",
+} as const;
+/* eslint-enable i18next/no-literal-string */
 
 export default function MainTabs() {
   const { t } = useTranslation();
-  const { theme } = useUnistyles();
 
   return (
-    <Tab.Navigator
-      screenOptions={{
-        tabBarActiveTintColor: theme.colors.icon.selected,
-        tabBarInactiveTintColor: theme.colors.icon.default,
-        tabBarStyle: {
-          backgroundColor: theme.colors.background.primary,
-          borderTopColor: theme.colors.border.primary,
-        },
-      }}
-    >
+    <Tab.Navigator>
       <Tab.Screen
         name="Home"
         component={HomeScreen}
         options={{
           title: t("tabs.home"),
-          tabBarIcon: ({ color }) => tabIcon(color),
+          tabBarIcon: homeTabIcon,
         }}
       />
       <Tab.Screen
@@ -50,7 +38,7 @@ export default function MainTabs() {
         component={ProfileScreen}
         options={{
           title: t("tabs.profile"),
-          tabBarIcon: ({ color }) => tabIcon(color),
+          tabBarIcon: profileTabIcon,
         }}
       />
     </Tab.Navigator>

@@ -21,6 +21,7 @@ const catalogs: Record<AppLanguage, typeof en> = {
 export {
   APP_LANGUAGES,
   AppLanguage,
+  isAppLanguage,
   LANGUAGE_NAME_KEYS,
   resolveAppLanguage,
 } from "./languages";
