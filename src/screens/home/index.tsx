@@ -18,6 +18,7 @@ export default function HomeScreen() {
   const [isSigningOut, setIsSigningOut] = useState(false);
   const [signOutError, setSignOutError] = useState<string | null>(null);
   const { data, error, loading, refetch } = useQuery(HomeViewerDocument);
+  const usesFixedViewerSlot = (loading && !data) || Boolean(data?.viewer);
 
   async function handleSignOut() {
     if (isSigningOut) {
@@ -96,7 +97,10 @@ export default function HomeScreen() {
       <Column alignment="center" spacing={16} style={styles.column}>
         <Spacer flexible />
         <Text textStyle={styles.title}>{t("screens.home.title")}</Text>
-        <Column alignment="center" style={styles.viewerSlot}>
+        <Column
+          alignment="center"
+          style={usesFixedViewerSlot ? styles.viewerSlot : undefined}
+        >
           {renderViewerState()}
         </Column>
         <Spacer flexible />
@@ -126,8 +130,6 @@ const styles = StyleSheet.create((theme) => ({
     fontWeight: "bold",
   },
   viewerSlot: {
-    alignItems: "center",
-    justifyContent: "center",
-    minHeight: 32,
+    height: 32,
   },
 }));
