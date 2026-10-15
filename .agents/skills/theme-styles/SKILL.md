@@ -20,18 +20,13 @@ Unistyles updates a React Native style on the shadow tree. Expo UI reads props s
 3. Put one `Host` around each Expo UI subtree. Inside it, lay out with Expo UI layout components. Yoga flex on the host does not position that subtree.
 4. Change the theme only through `saveThemePreference` and `applyThemePreference` in `src/theme/preference.ts`. That function updates Unistyles and calls `Appearance.setColorScheme` for every Expo UI component in the tree.
 5. Leave color props off the component. Omitted colors follow the appearance from step 4.
-6. When a component must show the saved theme, call `readThemePreference()` during render. Call `saveThemePreference` before that render.
+6. When a component must show the saved theme, call `readThemePreference()` during render. Call `saveThemePreference` before that render. Do not store that value in `useState` to pass it back.
 
 `seedColor` and `hostSeedColor` are fallbacks. They stay the same in light and dark. A change to either value is a new prop, and that prop renders the component again. Put a color that differs by theme in the theme objects in `src/theme/unistyles.ts`. Read it with `StyleSheet.create((theme) => ...)`. That path updates the shadow tree and does not render the component.
 
 ## Avoid these steps
 
-- Do not call `useUnistyles` to supply a prop on an Expo UI component.
-- Do not call `withUnistyles` to map the theme onto an Expo UI prop. This includes `colorScheme`, `seedColor`, text color, tint, and any other color.
-- Do not pass `colorScheme` or `seedColor` on an Expo UI component. The appearance comes from `applyThemePreference`. The seed color comes from the host wrapper.
-- Do not read theme colors in render to set an Expo UI color prop. Platform colors follow `Appearance`. A React Native style color belongs in `StyleSheet.create`.
-- Do not store the theme in `useState` only to pass it back into an Expo UI value prop. Save first. The next render calls `readThemePreference()`.
-- Do not give `seedColor` or `hostSeedColor` one value for light and another for dark. Put that difference in the theme objects in `src/theme/unistyles.ts`.
+- Do not call `useUnistyles` or `withUnistyles` to set a prop on an Expo UI component.
 
 `useUnistyles` stays on the React Navigation theme only. Native tabs read `theme.dark` and `theme.colors` from that theme object. The render continues through the navigator and the mounted screens. Do not add the hook to an Expo UI component to copy that pattern.
 
