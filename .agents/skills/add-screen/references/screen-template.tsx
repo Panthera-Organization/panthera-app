@@ -23,7 +23,7 @@ export function HomeworkDetailsScreen({ route }: Props) {
   useFocusEffect(useCallback(() => { refetch().catch(() => {}) }, [refetch]))
 
   if (loading && !data) return <LoadingView />
-  if (error && !data) return <ErrorView error={error} onRetry={() => refetch()} />
+  if (error && !data) return <ErrorView error={error} onRetry={() => { refetch().catch(() => {}) }} />
   if (!data?.homework) return <NotFoundView />  // null usually means RLS hid it
 
   return (
@@ -32,7 +32,7 @@ export function HomeworkDetailsScreen({ route }: Props) {
       keyExtractor={(e) => e.id}
       renderItem={({ item }) => <ExerciseRow exercise={item} />}
       ListEmptyComponent={<EmptyView text="No exercises yet" />}
-      refreshControl={<RefreshControl refreshing={loading} onRefresh={() => refetch()} />}
+      refreshControl={<RefreshControl refreshing={loading} onRefresh={() => { refetch().catch(() => {}) }} />}
     />
   )
 }

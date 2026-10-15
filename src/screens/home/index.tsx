@@ -28,7 +28,7 @@ export default function HomeScreen() {
   }
 
   function renderViewerState() {
-    if (loading) {
+    if (loading && !data) {
       return (
         <ActivityIndicator
           accessibilityLabel={t("screens.home.loading")}
@@ -37,7 +37,7 @@ export default function HomeScreen() {
       );
     }
 
-    if (error) {
+    if (error && !data) {
       return (
         <Column alignment="center" spacing={8}>
           <Text testID="home-viewer-error" textStyle={styles.body}>
