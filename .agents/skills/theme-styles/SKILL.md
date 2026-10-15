@@ -28,7 +28,7 @@ Unistyles updates a React Native style on the shadow tree. Expo UI reads props s
 
 - Do not call `useUnistyles` or `withUnistyles` to set a prop on an Expo UI component.
 
-`useUnistyles` stays on the React Navigation theme only. Native tabs read `theme.dark` and `theme.colors` from that theme object. The render continues through the navigator and the mounted screens. Do not add the hook to an Expo UI component to copy that pattern.
+Call `useUnistyles` only in the component that passes the React Navigation theme. Pass the navigator as `children` of that component. The theme object still updates the native chrome. The screen tree is not created by that render.
 
 ## Checks
 

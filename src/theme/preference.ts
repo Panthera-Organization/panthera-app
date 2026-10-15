@@ -23,12 +23,6 @@ export function readThemePreference(): THEME {
   return isThemePreference(stored) ? stored : THEME.SYSTEM;
 }
 
-export function syncRootViewBackground(): void {
-  UnistylesRuntime.setRootViewBackgroundColor(
-    UnistylesRuntime.getTheme().colors.background.primary,
-  );
-}
-
 export function applyThemePreference(preference: THEME): void {
   if (preference === THEME.SYSTEM) {
     UnistylesRuntime.setAdaptiveThemes(true);
@@ -40,8 +34,6 @@ export function applyThemePreference(preference: THEME): void {
     UnistylesRuntime.setTheme(preference);
     Appearance.setColorScheme(preference);
   }
-
-  syncRootViewBackground();
 }
 
 export function saveThemePreference(preference: THEME): void {
