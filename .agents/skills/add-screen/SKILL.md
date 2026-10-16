@@ -5,7 +5,7 @@ description: Build or change a screen in panthera-app (Expo + React Native) — 
 
 # Add or change a screen
 
-The app uses React Navigation native stacks. No session opens `Unauthenticated`. A session opens `Authorized`, which holds the signed-in tabs until a membership can choose `Teacher` or `Student`. The app also uses Apollo Client 4 (hooks from `@apollo/client/react`) and GraphQL Code Generator (client preset). `schema.graphql` is a read-only snapshot maintained by a bot PR. Auth, Storage and Realtime use the Supabase client directly.
+The app uses React Navigation native stacks. No session opens `Unauthenticated`. A session opens `Authorized`, which holds the signed-in tabs until a membership can choose `Teacher` or `Student`. The app also uses Apollo Client 4 (hooks from `@apollo/client/react`) and GraphQL Code Generator with Apollo's recommended plugins (`near-operation-file`, `typescript-operations`, `typed-document-node`, configured in `codegen.ts`). Do not use the codegen `client` preset or `graphql()`. Apollo advises against both. The client is in `src/lib/apollo.ts` and calls `${SUPABASE_URL}/functions/v1/graphql` with the Supabase access token. `schema.graphql` is a read-only snapshot maintained by a bot PR. Auth, Storage and Realtime use the Supabase client directly.
 
 ## Before you start
 
@@ -14,11 +14,12 @@ The app uses React Navigation native stacks. No session opens `Unauthenticated`.
 
 ## Steps
 
-1. Write the operations in `<Screen>.operations.ts` with `graphql()`, following `references/data-patterns.md`. Then run `npx graphql-codegen`.
+1. Write the operations in `<Screen>.graphql` next to the screen, following `references/data-patterns.md`. Then run `bun run codegen`. It writes `<Screen>.generated.ts` beside the file. Commit the generated files. CI fails when they are stale.
 2. Build the screen from `references/screen-template.tsx`, with all five states.
 3. Register it in its stack and add its params to `src/navigation/types.ts`.
 4. Add mutations, forms, uploads or Realtime as needed, using `references/data-patterns.md` and `references/storage-and-realtime.md`.
-5. Run `npx graphql-codegen && npx tsc --noEmit && npx eslint .`, then run the screen on a device or simulator.
+5. Add a test in `__tests__/` next to the screen with React Native Testing Library and `MockedProvider` from `@apollo/client/testing/react`. See `src/screens/home/__tests__/HomeScreen.test.tsx`.
+6. Run `bun run codegen && bun run typecheck && bun run lint && bun run test`, then run the screen on a device or simulator.
 
 ## Rules
 
@@ -33,7 +34,7 @@ The app uses React Navigation native stacks. No session opens `Unauthenticated`.
 
 - [ ] Loading, error (with retry), not found, empty and data states all render
 - [ ] Lists refresh on focus and on pull-to-refresh
-- [ ] Codegen, type-check and lint pass
+- [ ] Codegen, type-check, lint and tests pass
 - [ ] Checked on a device or simulator
 
 ## Report

@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  app:
+    name: Codegen, Lint, Typescript & Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+      - uses: oven-sh/setup-bun@v2
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22.x
+          package-manager-cache: false
+      - run: bun install --frozen-lockfile
+      - run: bun run codegen
+      - run: git diff --exit-code
+      - run: bun run typecheck
+      - run: bun run lint
+      - run: bun run test

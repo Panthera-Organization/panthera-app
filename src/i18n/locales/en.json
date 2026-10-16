@@ -1,7 +1,11 @@
 {
   "screens": {
     "home": {
-      "title": "Home Screen"
+      "title": "Home Screen",
+      "loading": "Loading",
+      "sessionExpired": "Session expired",
+      "noNameYet": "No name yet",
+      "retry": "Try again"
     },
     "profile": {
       "title": "Profile Screen"

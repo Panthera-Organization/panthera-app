@@ -16,6 +16,8 @@ module.exports = defineConfig([
     "android/**",
     ".agents/**",
     ".claude/**",
+    "src/graphql/__generated__/**",
+    "**/*.generated.ts",
   ]),
   expoConfig,
   {
@@ -85,6 +87,10 @@ module.exports = defineConfig([
       "react-native/no-inline-styles": "error",
       "react-native/no-color-literals": "error",
       "react-native/no-single-element-style-arrays": "error",
+      "@typescript-eslint/no-empty-object-type": [
+        "warn",
+        { allowInterfaces: "with-single-extends" },
+      ],
       "react-native-unistyles/no-unused-styles": "error",
       "react-native-unistyles/sort-styles": [
         "warn",
@@ -94,6 +100,14 @@ module.exports = defineConfig([
           ignoreStyleProperties: false,
         },
       ],
+    },
+  },
+  {
+    files: ["**/__tests__/**", "jest.setup.tsx"],
+    rules: {
+      "@typescript-eslint/no-require-imports": "off",
+      "i18next/no-literal-string": "off",
+      "import/first": "off",
     },
   },
   prettierConfig,

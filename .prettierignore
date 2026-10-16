@@ -7,3 +7,5 @@ coverage
 bun.lock
 .agents
 .claude
+src/graphql/__generated__/
+**/*.generated.ts

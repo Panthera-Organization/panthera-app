@@ -1,6 +1,7 @@
 // Keep this import first. Unistyles reads the theme before any stylesheet is created.
 import "@/theme/unistyles";
 
+import { ApolloProvider } from "@apollo/client/react";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
@@ -8,6 +9,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import "react-native-reanimated";
 
 import { initI18n } from "@/i18n";
+import { apolloClient } from "@/lib/apollo";
 import { AppNavigation } from "@/navigation/AppNavigation";
 import { AuthProvider, useAuth } from "@/state/AuthContext";
 
@@ -59,7 +61,9 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <AuthProvider>
-        <AppShell />
+        <ApolloProvider client={apolloClient}>
+          <AppShell />
+        </ApolloProvider>
       </AuthProvider>
     </SafeAreaProvider>
   );

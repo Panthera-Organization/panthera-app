@@ -31,8 +31,9 @@ function readSupabaseConfig(target: SupabaseTarget): {
   };
 }
 
-const { url: supabaseUrl, anonKey: supabaseAnonKey } =
-  readSupabaseConfig(readTarget());
+const supabaseConfig = readSupabaseConfig(readTarget());
+export const supabaseUrl = supabaseConfig.url;
+const supabaseAnonKey = supabaseConfig.anonKey;
 
 export const supabase: SupabaseClient | null =
   supabaseUrl && supabaseAnonKey
