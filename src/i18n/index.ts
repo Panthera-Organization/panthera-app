@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getLocales } from "expo-localization";
-import i18n from "i18next";
+import { changeLanguage, use as registerI18nPlugin } from "i18next";
 import { initReactI18next } from "react-i18next";
 
 import {
@@ -43,7 +43,7 @@ async function readSavedLanguage(): Promise<AppLanguage | null> {
 }
 
 async function configureI18n(language: AppLanguage): Promise<void> {
-  await i18n.use(initReactI18next).init({
+  await registerI18nPlugin(initReactI18next).init({
     resources: Object.fromEntries(
       APP_LANGUAGES.map((code) => [code, { translation: catalogs[code] }]),
     ),
@@ -76,6 +76,6 @@ export function initI18n(): Promise<void> {
 }
 
 export async function setAppLanguage(language: AppLanguage): Promise<void> {
-  await i18n.changeLanguage(language);
+  await changeLanguage(language);
   await AsyncStorage.setItem(LANGUAGE_STORAGE_KEY, language);
 }

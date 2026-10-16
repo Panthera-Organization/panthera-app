@@ -87,6 +87,10 @@ module.exports = defineConfig([
       "react-native/no-inline-styles": "error",
       "react-native/no-color-literals": "error",
       "react-native/no-single-element-style-arrays": "error",
+      "@typescript-eslint/no-empty-object-type": [
+        "warn",
+        { allowInterfaces: "with-single-extends" },
+      ],
       "react-native-unistyles/no-unused-styles": "error",
       "react-native-unistyles/sort-styles": [
         "warn",
